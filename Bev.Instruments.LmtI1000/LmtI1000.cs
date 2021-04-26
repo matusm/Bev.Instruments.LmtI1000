@@ -82,7 +82,7 @@ namespace Bev.Instruments.LmtI1000
             return error * 0.57735;
         }
 
-        private MeasurementRange EstimateMeasurementRange(double current)
+        public MeasurementRange EstimateMeasurementRange(double current)
         {
             if (double.IsNaN(current)) return MeasurementRange.Unknown;
             current = Math.Abs(current);
