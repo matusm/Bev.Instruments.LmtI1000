@@ -89,7 +89,7 @@ namespace Bev.Instruments.LmtI1000
         private int GetDigit(string token, int startIndex)
         {
             string subToken = token.Substring(startIndex, 1);
-            return int.TryParse(subToken, out int value) ? value : -1; // good old C++ error
+            return int.TryParse(subToken, out int value) ? value : -1; // good old C++ error flag
         }
 
         private double GetValue(string token, int startIndex)
