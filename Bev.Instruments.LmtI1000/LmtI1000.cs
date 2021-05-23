@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 
 namespace Bev.Instruments.LmtI1000
@@ -12,25 +12,31 @@ namespace Bev.Instruments.LmtI1000
             Initialize();
         }
 
+        public int DeviceAddress { get; }
         public string InstrumentManufacturer => "Lichtmesstechnik Berlin";
         public string InstrumentType => GetInstrumentType();
-        public string InstrumentSerialNumber => "---";      // no documented way to access
-        public string InstrumentFirmwareVersion => "---";   // no documented way to access
-        public string InstrumentID => $"{InstrumentType} @ {DeviceAddress:D2}";
-        public int DeviceAddress { get; }
+        public string InstrumentSerialNumber => GetDeviceSerialNumber();
+        public string InstrumentID => $"{InstrumentType} SN:{InstrumentSerialNumber} @ {DeviceAddress:D2}";
         public InstrumentState State { get; }
 
         // legacy function for single channel instruments
         public double GetDetectorCurrent()
         {
-            Fetch();
+            FetchInstrumentState();
             return State.CurrentA;
         }
 
-        // TODO : update only after some delay time ?
-        public void Fetch()
+        // legacy function for single channel instruments
+        public MeasurementRange GetMeasurementRange()
         {
-            string getCommand = $"REN UNL LISTEN {DeviceAddress} GET";
+            if (State.RangeA == MeasurementRange.Unknown)
+                FetchInstrumentState();
+            return State.RangeA;
+        }
+
+        public void FetchInstrumentState()
+        {
+            string getCommand = $"REN UNL LISTEN {DeviceAddress:D2} GET";
             Send(getCommand);
             string answer = Read();
             State.ParseString(answer);
@@ -98,7 +104,7 @@ namespace Bev.Instruments.LmtI1000
 
         private string GetInstrumentType()
         {
-            Fetch();
+            FetchInstrumentState();
             switch (State.Mode)
             {
                 case LmtMode.Unknown:
@@ -110,6 +116,13 @@ namespace Bev.Instruments.LmtI1000
                 case LmtMode.SingleChannel:
                     return "I 1000";
             }
+            return "---";
+        }
+
+        private string GetDeviceSerialNumber()
+        {
+            // there is no documented way to obtain the serial number
+            // TODO implement dictonary DeviceAddress-Ser.Nr. ?
             return "---";
         }
 
