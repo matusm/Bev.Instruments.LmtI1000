@@ -20,6 +20,7 @@ namespace Bev.Instruments.LmtI1000
 
         public void ParseString(string line)
         {
+            line = line.TrimEnd('\r', '\n'); //
             ResetState();
             if (line.Length == 31)
             {
