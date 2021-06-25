@@ -20,7 +20,7 @@ namespace Bev.Instruments.LmtI1000
 
         public void ParseString(string line)
         {
-            line = line.TrimEnd('\r', '\n'); //
+            line = line.TrimEnd('\r', '\n'); // return value of LmtI1000.Read() trimmed already. InstrumentState.ParseString() can be used with other libs, too.
             ResetState();
             if (line.Length == 31)
             {
