@@ -57,49 +57,50 @@ namespace Bev.Instruments.LmtI1000
                 case MeasurementRange.Unknown:
                     error = double.NaN;
                     break;
-                case MeasurementRange.Range0:
+                case MeasurementRange.Range02:
                     error = 0.001 * current + 1.0E-6;
                     break;
-                case MeasurementRange.Range1:
+                case MeasurementRange.Range03:
                     error = 0.001 * current + 1.0E-7;
                     break;
-                case MeasurementRange.Range2:
+                case MeasurementRange.Range04:
                     error = 0.001 * current + 1.0E-8;
                     break;
-                case MeasurementRange.Range3:
+                case MeasurementRange.Range05:
                     error = 0.001 * current + 1.0E-9;
                     break;
-                case MeasurementRange.Range4:
+                case MeasurementRange.Range06:
                     error = 0.001 * current + 1.0E-10;
                     break;
-                case MeasurementRange.Range5:
+                case MeasurementRange.Range07:
                     error = 0.0015 * current + 1.0E-11;
                     break;
-                case MeasurementRange.Range6:
+                case MeasurementRange.Range08:
                     error = 0.002 * current + 1.0E-12;
                     break;
-                case MeasurementRange.Range7:
+                case MeasurementRange.Range09:
                     error = 0.003 * current + 2.0E-13;
                     break;
                 default:
                     break;
             }
             // divide by Sqrt(3) for standard uncertainty
-            return error * 0.57735;
+            return error * 0.577350269;
         }
 
         public MeasurementRange EstimateMeasurementRange(double current)
         {
             if (double.IsNaN(current)) return MeasurementRange.Unknown;
             current = Math.Abs(current);
-            if (current > 2.0E-3) return MeasurementRange.Range0;
-            if (current > 2.0E-4) return MeasurementRange.Range1;
-            if (current > 2.0E-5) return MeasurementRange.Range2;
-            if (current > 2.0E-6) return MeasurementRange.Range3;
-            if (current > 2.0E-7) return MeasurementRange.Range4;
-            if (current > 2.0E-8) return MeasurementRange.Range5;
-            if (current > 2.0E-9) return MeasurementRange.Range6;
-            return MeasurementRange.Range7;
+            if (current > 1.9999E-2) return MeasurementRange.RangeOverflow;
+            if (current > 1.9999E-3) return MeasurementRange.Range02;
+            if (current > 1.9999E-4) return MeasurementRange.Range03;
+            if (current > 1.9999E-5) return MeasurementRange.Range04;
+            if (current > 1.9999E-6) return MeasurementRange.Range05;
+            if (current > 1.9999E-7) return MeasurementRange.Range06;
+            if (current > 1.9999E-8) return MeasurementRange.Range07;
+            if (current > 1.9999E-9) return MeasurementRange.Range08;
+            return MeasurementRange.Range09;
         }
 
         private string GetInstrumentType()

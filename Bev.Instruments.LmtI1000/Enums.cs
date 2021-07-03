@@ -11,14 +11,15 @@
     public enum MeasurementRange
     {
         Unknown,
-        Range0, //  20 mA
-        Range1, //   2 mA
-        Range2, // 200 uA
-        Range3, //  20 uA
-        Range4, //   2 uA
-        Range5, // 200 nA
-        Range6, //  20 nA
-        Range7  //   2 nA
+        RangeOverflow, // >20 mA
+        Range02, // 19.999 mA -   2.000 ma
+        Range03, // 1.9999 mA -  0.2000 mA
+        Range04, // 199.99 uA -   20.00 uA
+        Range05, // 19.999 uA -   2.000 uA
+        Range06, // 1.9999 uA -  0.2000 uA
+        Range07, // 199.99 nA -   20.00 nA
+        Range08, // 19.999 nA -   2.000 nA
+        Range09  // 1.9999 nA -  0.0000 nA
     }
-
 }
+

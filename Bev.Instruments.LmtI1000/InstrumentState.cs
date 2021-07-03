@@ -20,7 +20,7 @@ namespace Bev.Instruments.LmtI1000
 
         public void ParseString(string line)
         {
-            line = line.TrimEnd('\r', '\n'); // return value of LmtI1000.Read() trimmed already. InstrumentState.ParseString() can be used with other libs, too.
+            line = line.TrimEnd('\r', '\n'); // return value of LmtI1000.Read() is trimmed already. InstrumentState.ParseString() can be used with other libs, too.
             ResetState();
             if (line.Length == 31)
             {
@@ -60,21 +60,21 @@ namespace Bev.Instruments.LmtI1000
             switch (exp)
             {
                 case 2:
-                    return MeasurementRange.Range0;
+                    return MeasurementRange.Range02;
                 case 3:
-                    return MeasurementRange.Range1;
+                    return MeasurementRange.Range03;
                 case 4:
-                    return MeasurementRange.Range2;
+                    return MeasurementRange.Range04;
                 case 5:
-                    return MeasurementRange.Range3;
+                    return MeasurementRange.Range05;
                 case 6:
-                    return MeasurementRange.Range4;
+                    return MeasurementRange.Range06;
                 case 7:
-                    return MeasurementRange.Range5;
+                    return MeasurementRange.Range07;
                 case 8:
-                    return MeasurementRange.Range6;
+                    return MeasurementRange.Range08;
                 case 9:
-                    return MeasurementRange.Range7;
+                    return MeasurementRange.Range09;
                 default:
                     return MeasurementRange.Unknown;
             }
@@ -90,7 +90,7 @@ namespace Bev.Instruments.LmtI1000
         private int ParseDigitFrom(string token, int atStartIndex)
         {
             string subToken = token.Substring(atStartIndex, 1);
-            return int.TryParse(subToken, out int value) ? value : -1; // good old C++ error
+            return int.TryParse(subToken, out int value) ? value : -1; // good old C++ error return value
         }
 
         private double ParseDoubleFrom(string token, int atStartIndex)
