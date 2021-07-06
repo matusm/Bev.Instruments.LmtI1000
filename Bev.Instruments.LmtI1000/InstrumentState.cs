@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 namespace Bev.Instruments.LmtI1000
@@ -17,6 +18,8 @@ namespace Bev.Instruments.LmtI1000
         public MeasurementRange RangeA { get; private set; }
         public MeasurementRange RangeB { get; private set; }
         public double Ratio => CurrentA / CurrentB;
+        public DateTime TimeStamp { get; private set; }
+
 
         public void ParseString(string line)
         {
@@ -101,6 +104,7 @@ namespace Bev.Instruments.LmtI1000
 
         private void ResetState()
         {
+            TimeStamp = DateTime.UtcNow;
             Mode = LmtMode.Unknown;
             OverflowA = false;
             OverflowB = false;
