@@ -30,24 +30,24 @@ namespace Bev.Instruments.LmtI1000
                 CurrentA = ParseDoubleFrom(line, 1);
                 CurrentB = ParseDoubleFrom(line, 17);
                 int statusByteA = ParseDigitFrom(line, 14);
-                OverflowA = CheckOverflow(statusByteA);
-                OverflowB = CheckOverflow(ParseDigitFrom(line, 30));
+                OverflowA = CheckOverflow(statusByteA) || CheckOverflow(line.Substring(2, 6));
+                OverflowB = CheckOverflow(ParseDigitFrom(line, 30)) || CheckOverflow(line.Substring(18, 6));
                 if (statusByteA == 7) Mode = LmtMode.TwoChannels;
                 if (statusByteA == 6) Mode = LmtMode.BlueRed;
                 if (statusByteA == 3) Mode = LmtMode.TwoChannels;
                 if (statusByteA == 2) Mode = LmtMode.BlueRed;
                 RangeA = GetRange(ParseDigitFrom(line, 11));
                 RangeB = GetRange(ParseDigitFrom(line, 27));
-                return;
             }
             if (line.Length == 14)
             {
                 CurrentA = ParseDoubleFrom(line, 0);
-                OverflowA = CheckOverflow(ParseDigitFrom(line, 13));
+                OverflowA = CheckOverflow(ParseDigitFrom(line, 13)) || CheckOverflow(line.Substring(1, 6));
                 Mode = LmtMode.SingleChannel;
                 RangeA = GetRange(ParseDigitFrom(line, 10));
-                return;
             }
+            if (OverflowA) CurrentA = double.NaN;
+            if (OverflowB) CurrentB = double.NaN;
         }
 
         public override string ToString()
@@ -89,6 +89,14 @@ namespace Bev.Instruments.LmtI1000
             if (statusByte == 6) return false;
             return true;
         }
+
+        private bool CheckOverflow(string substr)
+        {
+            if (substr == "6.0000")
+                return false;
+            return true;
+        }
+
 
         private int ParseDigitFrom(string token, int atStartIndex)
         {
