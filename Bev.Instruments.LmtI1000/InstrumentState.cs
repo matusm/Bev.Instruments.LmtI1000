@@ -13,8 +13,8 @@ namespace Bev.Instruments.LmtI1000
         public LmtMode Mode { get; private set; }
         public double CurrentA { get; private set; }
         public double CurrentB { get; private set; }
-        public bool OverflowA { get; private set; }
-        public bool OverflowB { get; private set; }
+        public bool OverflowA { get; private set; } // true if overflow
+        public bool OverflowB { get; private set; } // true if overflow
         public MeasurementRange RangeA { get; private set; }
         public MeasurementRange RangeB { get; private set; }
         public double Ratio => CurrentA / CurrentB;
@@ -93,8 +93,8 @@ namespace Bev.Instruments.LmtI1000
         private bool CheckOverflow(string substr)
         {
             if (substr == "6.0000")
-                return false;
-            return true;
+                return true;
+            return false;
         }
 
 
