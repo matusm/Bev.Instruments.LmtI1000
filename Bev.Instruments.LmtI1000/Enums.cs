@@ -12,7 +12,7 @@
     {
         Unknown,
         RangeOverflow, // >20 mA
-        Range02, // 19.999 mA -   2.000 ma
+        Range02, // 19.999 mA -   2.000 mA
         Range03, // 1.9999 mA -  0.2000 mA
         Range04, // 199.99 uA -   20.00 uA
         Range05, // 19.999 uA -   2.000 uA

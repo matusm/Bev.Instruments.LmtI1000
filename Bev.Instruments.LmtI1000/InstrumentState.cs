@@ -20,7 +20,6 @@ namespace Bev.Instruments.LmtI1000
         public double Ratio => CurrentA / CurrentB;
         public DateTime TimeStamp { get; private set; }
 
-
         public void ParseString(string line)
         {
             line = line.TrimEnd('\r', '\n'); // return value of LmtI1000.Read() is trimmed already. InstrumentState.ParseString() can be used with other libs, too.
@@ -96,7 +95,6 @@ namespace Bev.Instruments.LmtI1000
                 return true;
             return false;
         }
-
 
         private int ParseDigitFrom(string token, int atStartIndex)
         {

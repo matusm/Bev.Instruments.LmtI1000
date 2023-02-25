@@ -42,51 +42,50 @@ namespace Bev.Instruments.LmtI1000
             State.ParseString(answer);
         }
 
-        public double GetMeasurementUncertainty(double current)
-        {
-            var range = EstimateMeasurementRange(current);
-            return GetMeasurementUncertainty(current, range);
-        }
+        public double GetSpecification(double current) => GetSpecification(current, EstimateMeasurementRange(current));
 
-        public double GetMeasurementUncertainty(double current, MeasurementRange range)
+        public double GetSpecification(double current, MeasurementRange range)
         {
-            double error = 0;
+            double errorInterval = 0;
             current = Math.Abs(current);
             switch (range)
             {
                 case MeasurementRange.Unknown:
-                    error = double.NaN;
+                    errorInterval = double.NaN;
                     break;
                 case MeasurementRange.Range02:
-                    error = 0.001 * current + 1.0E-6;
+                    errorInterval = 0.001 * current + 1.0E-6;
                     break;
                 case MeasurementRange.Range03:
-                    error = 0.001 * current + 1.0E-7;
+                    errorInterval = 0.001 * current + 1.0E-7;
                     break;
                 case MeasurementRange.Range04:
-                    error = 0.001 * current + 1.0E-8;
+                    errorInterval = 0.001 * current + 1.0E-8;
                     break;
                 case MeasurementRange.Range05:
-                    error = 0.001 * current + 1.0E-9;
+                    errorInterval = 0.001 * current + 1.0E-9;
                     break;
                 case MeasurementRange.Range06:
-                    error = 0.001 * current + 1.0E-10;
+                    errorInterval = 0.001 * current + 1.0E-10;
                     break;
                 case MeasurementRange.Range07:
-                    error = 0.0015 * current + 1.0E-11;
+                    errorInterval = 0.0015 * current + 1.0E-11;
                     break;
                 case MeasurementRange.Range08:
-                    error = 0.002 * current + 1.0E-12;
+                    errorInterval = 0.002 * current + 1.0E-12;
                     break;
                 case MeasurementRange.Range09:
-                    error = 0.003 * current + 2.0E-13;
+                    errorInterval = 0.003 * current + 2.0E-13;
                     break;
                 default:
                     break;
             }
-            // divide by Sqrt(3) for standard uncertainty
-            return error * 0.577350269;
+            return errorInterval;
         }
+
+        public double GetMeasurementUncertainty(double current) => GetMeasurementUncertainty(current, EstimateMeasurementRange(current));
+
+        public double GetMeasurementUncertainty(double current, MeasurementRange range) => Math.Sqrt(1.0 / 3.0) * GetSpecification(current, range);
 
         public MeasurementRange EstimateMeasurementRange(double current)
         {
