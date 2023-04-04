@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bev.Instruments.LmtI1000", "Bev.Instruments.LmtI1000\Bev.Instruments.LmtI1000.csproj", "{A66F842E-77AC-4496-AE91-E0984086BA19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLMT", "TestLMT\TestLMT.csproj", "{3BBC94BB-7969-4A7A-9BE5-CA3B44672149}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A66F842E-77AC-4496-AE91-E0984086BA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66F842E-77AC-4496-AE91-E0984086BA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A66F842E-77AC-4496-AE91-E0984086BA19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BBC94BB-7969-4A7A-9BE5-CA3B44672149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BBC94BB-7969-4A7A-9BE5-CA3B44672149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BBC94BB-7969-4A7A-9BE5-CA3B44672149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BBC94BB-7969-4A7A-9BE5-CA3B44672149}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
