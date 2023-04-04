@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bev.IO.Keithley500S">
+      <HintPath>..\..\Bev.IO.Keithley500S\Bev.IO.Keithley500S\bin\Release\Bev.IO.Keithley500S.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

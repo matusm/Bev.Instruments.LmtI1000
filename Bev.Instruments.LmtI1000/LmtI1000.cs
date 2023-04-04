@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Bev.IO.Keithley500S;
 
 namespace Bev.Instruments.LmtI1000
 {
@@ -9,9 +10,10 @@ namespace Bev.Instruments.LmtI1000
         {
             DeviceAddress = deviceAddress;
             State = new InstrumentState();
-            Initialize();
+            //Initialize();
         }
 
+        public K500S GpibHandler { get; set; } // this must be set at the very begin!
         public int DeviceAddress { get; }
         public string InstrumentManufacturer => "Lichtmesstechnik Berlin";
         public string InstrumentType => GetInstrumentType();
@@ -36,8 +38,6 @@ namespace Bev.Instruments.LmtI1000
 
         public void FetchInstrumentState()
         {
-            string getCommand = $"REN UNL LISTEN {DeviceAddress:D2} GET";
-            Send(getCommand);
             string answer = Read();
             State.ParseString(answer);
         }
@@ -128,11 +128,9 @@ namespace Bev.Instruments.LmtI1000
 
         #region IEEE 488 specific methods
 
-        private void Initialize()
+        public void Initialize()
         {
-            if (DeviceAddress < 0) throw new Exception();
-            if (DeviceAddress > 31) throw new Exception();
-            // if necessary do some init here
+            GpibHandler.Remote(DeviceAddress);
         }
 
         private string Read()
@@ -142,15 +140,11 @@ namespace Bev.Instruments.LmtI1000
             //    "A+1.2345E-02A 7,B+0.1234E-08A 7", // 1992 lf
             //    "+0.3193E-07A 3" // 2017 cr lf
             //};
-
-            string replyString = "B+1.2345E-04A 6,R+0.1234E-09A 6";
-            return replyString.TrimEnd('\r', '\n');
-        }
-
-        private void Send(string command)
-        {
-            //throw new NotImplementedException();
+            GpibHandler.Trigger(DeviceAddress);
             Thread.Sleep(delayAfterSend);
+            string replyString = GpibHandler.ReadGpib(DeviceAddress);
+            char[] charsToTrim = { '\r', '\n' };
+            return replyString.TrimEnd(charsToTrim);
         }
 
         private const int delayAfterSend = 200;
