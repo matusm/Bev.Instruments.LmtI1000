@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bev.IO.Keithley500S;
+﻿using Bev.IO.Gpib;
+using Bev.IO.Gpib.Keithley500Serial;
 using Bev.Instruments.LmtI1000;
+using System;
 using System.Globalization;
-
 
 namespace TestLMT
 {
@@ -17,17 +13,14 @@ namespace TestLMT
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
             int gpibAddress = 16;
-            string port = "COM8";
+            string port = "COM1";
 
-            K500S k500S = new K500S(port);
+            IGpibHandler gpib = new Keithley500Serial(port);
 
-            LmtI1000 lmt = new LmtI1000(gpibAddress);
-
-            lmt.GpibHandler = k500S;
-
-            lmt.Initialize();
+            LmtI1000 lmt = new LmtI1000(gpibAddress, gpib);
 
             Console.WriteLine(lmt.InstrumentID);
+            Console.WriteLine();
 
             for (int i = 0; i < 10; i++)
             {
@@ -36,8 +29,12 @@ namespace TestLMT
                 Console.WriteLine();
             }
 
-            k500S.Local(gpibAddress);
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(lmt.GetDetectorCurrent());
+            }
 
+            lmt.Disconnect();
         }
     }
 }

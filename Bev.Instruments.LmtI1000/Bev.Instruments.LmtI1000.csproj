@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bev.Instruments.LmtI1000</RootNamespace>
     <AssemblyName>Bev.Instruments.LmtI1000</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bev.IO.Keithley500S">
-      <HintPath>..\..\Bev.IO.Keithley500S\Bev.IO.Keithley500S\bin\Release\Bev.IO.Keithley500S.dll</HintPath>
+    <Reference Include="Bev.IO.Gpib">
+      <HintPath>..\..\Bev.IO.Gpib\bin\Release\Bev.IO.Gpib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

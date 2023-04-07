@@ -1,19 +1,20 @@
 using System;
 using System.Threading;
-using Bev.IO.Keithley500S;
+using Bev.IO.Gpib;
 
 namespace Bev.Instruments.LmtI1000
 {
     public class LmtI1000
     {
-        public LmtI1000(int deviceAddress)
+        public LmtI1000(int deviceAddress, IGpibHandler gpibHandler)
         {
             DeviceAddress = deviceAddress;
+            GpibHandler = gpibHandler;
             State = new InstrumentState();
-            //Initialize();
+            Initialize();
         }
 
-        public K500S GpibHandler { get; set; } // this must be set at the very begin!
+        public IGpibHandler GpibHandler { get; }
         public int DeviceAddress { get; }
         public string InstrumentManufacturer => "Lichtmesstechnik Berlin";
         public string InstrumentType => GetInstrumentType();
@@ -38,7 +39,7 @@ namespace Bev.Instruments.LmtI1000
 
         public void FetchInstrumentState()
         {
-            string answer = Read();
+            string answer = ReadInstrument();
             State.ParseString(answer);
         }
 
@@ -133,21 +134,27 @@ namespace Bev.Instruments.LmtI1000
             GpibHandler.Remote(DeviceAddress);
         }
 
-        private string Read()
+        public void Disconnect()
+        {
+            GpibHandler.Local(DeviceAddress);
+        }
+
+        private string ReadInstrument()
         {
             //string[] examples = {
             //    "B+1.2345E-04A 6,R+0.1234E-09A 6", // 1998 lf
             //    "A+1.2345E-02A 7,B+0.1234E-08A 7", // 1992 lf
             //    "+0.3193E-07A 3" // 2017 cr lf
             //};
+
             GpibHandler.Trigger(DeviceAddress);
-            Thread.Sleep(delayAfterSend);
-            string replyString = GpibHandler.ReadGpib(DeviceAddress);
+            Thread.Sleep(delayAfterTrigger);
+            string replyString = GpibHandler.Enter(DeviceAddress);
             char[] charsToTrim = { '\r', '\n' };
             return replyString.TrimEnd(charsToTrim);
         }
 
-        private const int delayAfterSend = 200;
+        private const int delayAfterTrigger = 200;
 
         #endregion
 
