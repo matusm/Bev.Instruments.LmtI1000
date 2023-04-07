@@ -123,8 +123,23 @@ namespace Bev.Instruments.LmtI1000
         private string GetDeviceSerialNumber()
         {
             // there is no documented way to obtain the serial number
-            // TODO implement dictonary DeviceAddress-Ser.Nr. ?
-            return "---";
+            // use a hard coded dicitonary
+            return GetDeviceSerialNumberForBevLab();
+        }
+
+        private string GetDeviceSerialNumberForBevLab()
+        {
+            switch (DeviceAddress)
+            {
+                case 13:
+                    return "09C0431";
+                case 16:
+                    return "0498201";
+                case 14:
+                    return "09C0432";
+                default:
+                    return "---";
+            }
         }
 
         #region IEEE 488 specific methods
@@ -146,7 +161,6 @@ namespace Bev.Instruments.LmtI1000
             //    "A+1.2345E-02A 7,B+0.1234E-08A 7", // 1992 lf
             //    "+0.3193E-07A 3" // 2017 cr lf
             //};
-
             GpibHandler.Trigger(DeviceAddress);
             Thread.Sleep(delayAfterTrigger);
             string replyString = GpibHandler.Enter(DeviceAddress);
