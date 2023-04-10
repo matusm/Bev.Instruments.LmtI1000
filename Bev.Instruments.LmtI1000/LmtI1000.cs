@@ -6,6 +6,30 @@ namespace Bev.Instruments.LmtI1000
 {
     public class LmtI1000
     {
+
+        #region Site specific values! Modify on use!
+        /**********************************************/
+        /* There is no documented way to obtain the   */
+        /* instrument`s serial number automatically.  */
+        /* This very site specific method infers the  */
+        /* serial number from the GBIP address.       */
+        /**********************************************/
+        private string GetDeviceSerialNumberForBevLab()
+        {
+            switch (DeviceAddress)
+            {
+                case 13:
+                    return "09C0431";
+                case 16:
+                    return "0498201";
+                case 14:
+                    return "09C0432";
+                default:
+                    return "---";
+            }
+        }
+        #endregion
+
         public LmtI1000(int deviceAddress, IGpibHandler gpibHandler)
         {
             DeviceAddress = deviceAddress;
@@ -125,21 +149,6 @@ namespace Bev.Instruments.LmtI1000
             // there is no documented way to obtain the serial number
             // use a hard coded dicitonary
             return GetDeviceSerialNumberForBevLab();
-        }
-
-        private string GetDeviceSerialNumberForBevLab()
-        {
-            switch (DeviceAddress)
-            {
-                case 13:
-                    return "09C0431";
-                case 16:
-                    return "0498201";
-                case 14:
-                    return "09C0432";
-                default:
-                    return "---";
-            }
         }
 
         #region IEEE 488 specific methods
