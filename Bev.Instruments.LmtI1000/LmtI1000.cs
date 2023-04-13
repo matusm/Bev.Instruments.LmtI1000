@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using Bev.IO.Gpib;
+using Bev.IO.RemoteInterface;
 
 namespace Bev.Instruments.LmtI1000
 {
@@ -30,7 +30,7 @@ namespace Bev.Instruments.LmtI1000
         }
         #endregion
 
-        public LmtI1000(int deviceAddress, IGpibHandler gpibHandler)
+        public LmtI1000(int deviceAddress, IRemoteInterface gpibHandler)
         {
             DeviceAddress = deviceAddress;
             GpibHandler = gpibHandler;
@@ -38,7 +38,7 @@ namespace Bev.Instruments.LmtI1000
             Initialize();
         }
 
-        public IGpibHandler GpibHandler { get; }
+        public IRemoteInterface GpibHandler { get; }
         public int DeviceAddress { get; }
         public string InstrumentManufacturer => "Lichtmesstechnik Berlin";
         public string InstrumentType => GetInstrumentType();

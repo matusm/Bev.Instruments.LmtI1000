@@ -1,4 +1,4 @@
-﻿using Bev.IO.Gpib;
+﻿using Bev.IO.RemoteInterface;
 using Bev.IO.Gpib.Keithley500Serial;
 using Bev.Instruments.LmtI1000;
 using System;
@@ -17,7 +17,7 @@ namespace TestLMT
             int keithleyAddress = 18;
             string port = "COM1";
 
-            IGpibHandler gpib = new Keithley500Serial(port);
+            IRemoteInterface gpib = new Keithley500Serial(port);
 
             LmtI1000 lmt = new LmtI1000(lmtAddress, gpib);
 
