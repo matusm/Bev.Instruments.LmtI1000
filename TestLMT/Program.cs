@@ -1,5 +1,6 @@
 ﻿using Bev.IO.RemoteInterface;
 using Bev.IO.Gpib.Keithley500Serial;
+using Bev.IO.Gpib.NIusb;
 using Bev.Instruments.LmtI1000;
 using System;
 using System.Globalization;

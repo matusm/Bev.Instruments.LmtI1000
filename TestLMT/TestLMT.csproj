@@ -39,6 +39,9 @@
     <Reference Include="Bev.IO.Gpib.Keithley500Serial">
       <HintPath>..\..\Bev.IO.Gpib.Keithley500Serial\Bev.IO.Gpib.Keithley500Serial\bin\Release\Bev.IO.Gpib.Keithley500Serial.dll</HintPath>
     </Reference>
+    <Reference Include="Bev.IO.Gpib.NIusb">
+      <HintPath>..\..\Bev.IO.Gpib.NIusb\bin\Release\Bev.IO.Gpib.NIusb.dll</HintPath>
+    </Reference>
     <Reference Include="Bev.IO.RemoteInterface">
       <HintPath>..\..\Bev.IO.RemoteInterface\Bev.IO.RemoteInterface\bin\Release\Bev.IO.RemoteInterface.dll</HintPath>
     </Reference>
