@@ -22,38 +22,40 @@ namespace TestLMT
             LmtI1000 lmt = new LmtI1000(lmtAddress, gpib);
 
             Console.WriteLine(lmt.InstrumentID);
-            //Console.WriteLine();
+            Console.WriteLine();
 
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    lmt.FetchInstrumentState();
-            //    Console.WriteLine(lmt.State.CurrentA);
-            //    Console.WriteLine();
-            //}
+            for (int i = 0; i < 10; i++)
+            {
+                lmt.FetchInstrumentState();
+                Console.WriteLine(lmt.State.CurrentA);
+                Console.WriteLine(lmt.State.Mode);
+                Console.WriteLine();
+            }
 
-            gpib.Remote(keithleyAddress);
-            Thread.Sleep(200);
+            //gpib.Remote(keithleyAddress);
+            //Thread.Sleep(200);
 
-            gpib.Output(keithleyAddress, "SYSTEM:VERSION?");
-            Console.WriteLine( gpib.Enter(keithleyAddress));
+            //gpib.Output(keithleyAddress, "SYSTEM:VERSION?");
+            //Console.WriteLine( gpib.Enter(keithleyAddress));
 
-            gpib.Output(keithleyAddress, "local lockout");
+            //gpib.Output(keithleyAddress, "local lockout");
 
-            gpib.Output(keithleyAddress, "*IDN?");
-            Console.WriteLine(gpib.Enter(keithleyAddress));
+            //gpib.Output(keithleyAddress, "*IDN?");
+            //Console.WriteLine(gpib.Enter(keithleyAddress));
 
             //gpib.Output(keithleyAddress, "SYSTEM:SENSE:VOLTAGE:DC:RANGE:UPPER 20");
             //Console.WriteLine(gpib.Enter(keithleyAddress));
 
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine(lmt.GetDetectorCurrent());
-                gpib.Output(keithleyAddress, "FETCH?");
-                Thread.Sleep(200);
-                string str = $"{i} - {gpib.Enter(keithleyAddress)}";
-                Console.WriteLine(str);
-            }
-            gpib.Local(keithleyAddress);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Console.WriteLine(lmt.GetDetectorCurrent());
+            //    gpib.Output(keithleyAddress, "FETCH?");
+            //    Thread.Sleep(200);
+            //    string str = $"{i} - {gpib.Enter(keithleyAddress)}";
+            //    Console.WriteLine(str);
+            //}
+            
+            //gpib.Local(keithleyAddress);
 
             lmt.Disconnect();
 
