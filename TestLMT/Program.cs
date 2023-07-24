@@ -33,7 +33,7 @@ namespace TestLMT
             for (int i = 0; i < 10; i++)
             {
                 lmt.FetchInstrumentState();
-                Console.WriteLine(lmt.State);
+                Console.WriteLine(lmt.State.ResponseLine);
             }
 
             //gpib.Remote(keithleyAddress);
