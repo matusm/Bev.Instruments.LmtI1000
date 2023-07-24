@@ -177,7 +177,7 @@ namespace Bev.Instruments.LmtI1000
             return replyString.TrimEnd(charsToTrim);
         }
 
-        private const int delayAfterTrigger = 200;
+        private const int delayAfterTrigger = 500;
 
         #endregion
 

@@ -1,10 +1,10 @@
-﻿using Bev.IO.RemoteInterface;
-using Bev.IO.Gpib.Keithley500Serial;
-using Bev.IO.Gpib.NIusb;
-using Bev.Instruments.LmtI1000;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Threading;
+using Bev.IO.RemoteInterface;
+using Bev.IO.Gpib.Keithley500Serial;
+using Bev.IO.Gpib.NiVisa;
+using Bev.Instruments.LmtI1000;
 
 namespace TestLMT
 {
@@ -15,10 +15,10 @@ namespace TestLMT
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
             int lmtAddress = 13;
-            int keithleyAddress = 18;
             string port = "COM1";
 
-            IRemoteInterface gpib = new Keithley500Serial(port);
+            //IRemoteInterface gpib = new Keithley500Serial(port);
+            IRemoteInterface gpib = new NiVisa(lmtAddress);
 
             LmtI1000 lmt = new LmtI1000(lmtAddress, gpib);
 
@@ -29,8 +29,9 @@ namespace TestLMT
             {
                 lmt.FetchInstrumentState();
                 Console.WriteLine(lmt.State.CurrentA);
-                Console.WriteLine(lmt.State.Mode);
-                Console.WriteLine();
+                //Console.WriteLine(lmt.State.Mode);
+                //Console.WriteLine(lmt.State);
+                //Console.WriteLine(lmt.State.CurrentA);
             }
 
             //gpib.Remote(keithleyAddress);
@@ -55,7 +56,7 @@ namespace TestLMT
             //    string str = $"{i} - {gpib.Enter(keithleyAddress)}";
             //    Console.WriteLine(str);
             //}
-            
+
             //gpib.Local(keithleyAddress);
 
             lmt.Disconnect();
