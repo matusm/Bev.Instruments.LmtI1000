@@ -27,11 +27,13 @@ namespace TestLMT
 
             for (int i = 0; i < 10; i++)
             {
+                Console.WriteLine(lmt.GetDetectorCurrent());
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
                 lmt.FetchInstrumentState();
-                Console.WriteLine(lmt.State.CurrentA);
-                //Console.WriteLine(lmt.State.Mode);
-                //Console.WriteLine(lmt.State);
-                //Console.WriteLine(lmt.State.CurrentA);
+                Console.WriteLine(lmt.State);
             }
 
             //gpib.Remote(keithleyAddress);

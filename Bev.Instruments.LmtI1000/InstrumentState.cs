@@ -19,11 +19,13 @@ namespace Bev.Instruments.LmtI1000
         public MeasurementRange RangeB { get; private set; }
         public double Ratio => CurrentA / CurrentB;
         public DateTime TimeStamp { get; private set; }
+        public string ResponseLine { get; private set; }
 
         public void ParseString(string line)
         {
             line = line.TrimEnd('\r', '\n'); // return value of LmtI1000.Read() is trimmed already. InstrumentState.ParseString() can be used with other libs, too.
             ResetState();
+            ResponseLine = line;
             if (line.Length == 31)
             {
                 CurrentA = ParseDoubleFrom(line, 1);
@@ -118,6 +120,7 @@ namespace Bev.Instruments.LmtI1000
             CurrentB = double.NaN;
             RangeA = MeasurementRange.Unknown;
             RangeB = MeasurementRange.Unknown;
+            ResponseLine = string.Empty;
         }
     }
 }
